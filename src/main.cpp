@@ -2,19 +2,13 @@
  * C++ Program for RSA asymmetric cryptographic algorithm.
  */
 
-// Not Finished
-
-
 #include <iostream>
-#include <cmath>
-#include <random>
-#include <ctime>
 using namespace std;
 
 class RSA{
     int p, q, mod, e = 2, phi, d;
 
-    bool prime_num(long long int Number){
+    bool prime_num(int Number){
         if (Number <= 2 && Number >= 0){
             return true;
         }
@@ -25,20 +19,6 @@ class RSA{
         }
         return true;
     }
-
-    int encrypt(){
-
-
-        return 0;
-    }
-
-    int decrypt() {
-
-        return 0;
-    }
-
-
-
 
     static int GCD(int Num, int Mod){
         int tmp;
@@ -57,10 +37,6 @@ class RSA{
         return 0;
     }
 
-
-
-
-
 public:
 
     RSA(int P, int Q){
@@ -72,9 +48,14 @@ public:
         this->phi = ((this->p - 1) * (this->q - 1));
 
         int i, j;
+        int last;
         int count=0;
 
         int *arr = new int [phi];
+
+        for (i = 0; i < phi; phi++){
+            arr[i] = 0;
+        }
 
         for (i = 2; i < phi; i++){
             if (this->prime_num(i)){
@@ -87,7 +68,7 @@ public:
             }
         }
 
-        for (i = phi - 1; phi > 0; phi--)
+        for (i = phi - 1; phi > 0; i--)
         {
             if (this->prime_num(i))
             {
@@ -115,13 +96,12 @@ public:
     }
 
     void private_key() {
-        // Mod,
-        int i;
-
+        // Mod and d;
         cout << "Private key = " << this->mod << " " << this->d << endl;
     }
 
     void open_key(){
+        // e and mod
         cout << "Open Key = " << this->e << " " << this->mod << endl;
     }
 
@@ -134,13 +114,12 @@ public:
 
 
 int main(){
-    srand(static_cast<unsigned>(time(NULL)));
     int n, e, p, q;
 
     cout << "Enter prime number P and Q: ";
     cin >> p >> q;
 
-    RSA key = RSA(e, n);
+    RSA key = RSA(p, q);
     key.open_key();
     cout << endl;
     key.private_key();
@@ -167,11 +146,6 @@ int main(){
 //        case 3: n = 4096; break;
 //        default: cout << "Something went wrong.\n Exiting..."; return 1;
 //    }
-
-
-
-
-
 
     return 0;
 }
